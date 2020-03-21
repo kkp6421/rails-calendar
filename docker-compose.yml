@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  postgres_data:
+    image: busybox
+    volumes:
+      - rails-calendar-db:/var/lib/postgresql/data
+    container_name: postgres-datastore
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: python
+      POSTGRES_PASSWORD: triple4649
+      TZ: Asia/Tokyo
+    ports:
+      - "5432:5432"
+    container_name: postgres
+    volumes:
+      - rails-calendar-db:/var/lib/postgresql/data
+
+  web:
+    build: .
+    environment:
+      TZ: Asia/Tokyo
+    ports:
+      - "3000:3000"
+    command:  bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/myapp
+    env_file: .env
+    depends_on:
+      - postgres
+    container_name: web-container
+
+volumes:
+  rails-calendar-db:
+    external: true

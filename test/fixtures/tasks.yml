@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  text: MyString
+  selected_data: 2020-03-19
+
+two:
+  text: MyString
+  selected_data: 2020-03-19
